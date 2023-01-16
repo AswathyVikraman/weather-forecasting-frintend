@@ -1,0 +1,86 @@
+<!-- <p>weather-app works!</p> -->
+
+
+
+
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+  <img width="40"alt="Weather Logo" src="https://tse2.mm.bing.net/th/id/OIP.ku187PEwhqUHEowXxIZaIwHaHa?pid=ImgDet&rs=1" />
+
+  <span>Weather App</span>
+  <div class="spacer"></div>
+  <div class="search">
+    <form #form="ngForm" (submit)="onSubmit()">
+      <input type="text" placeholder="search city" name="city"
+      [(ngModel)]="cityName">
+    </form>
+  </div>
+  &nbsp;&nbsp;
+
+  <ng-container *ngIf="role =='user'">
+  <div>
+    <a id="forget" routerLink="/frontpage" style="color:white;">
+      Go to home page
+    </a>
+  </div>
+</ng-container>
+
+  <ng-container *ngIf="role =='admin'">
+  <div><a id="forget" routerLink="/weather-dashboard" style="color:white;">Manage information</a></div>
+  </ng-container>
+</div>
+
+<div class="container-fluid">
+
+  <div class="container" *ngIf="weatherData">
+
+    <div class="upperdata">
+
+      <img src="../assets/download1.jpg" *ngIf="weatherData.temperatureC >= '15'">
+      <img src="../assets/OIP.jpg" *ngIf="weatherData.temperatureC < '15'">
+
+      <div class="weather-data">
+
+        <div class="location">{{weatherData.city}}</div>
+        <div class="temperature"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-thermometer-sun" viewBox="0 0 16 16">
+          <path d="M5 12.5a1.5 1.5 0 1 1-2-1.415V2.5a.5.5 0 0 1 1 0v8.585A1.5 1.5 0 0 1 5 12.5z"/>
+          <path d="M1 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0V2.5zM3.5 1A1.5 1.5 0 0 0 2 2.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0L5 10.486V2.5A1.5 1.5 0 0 0 3.5 1zm5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5zm4.243 1.757a.5.5 0 0 1 0 .707l-.707.708a.5.5 0 1 1-.708-.708l.708-.707a.5.5 0 0 1 .707 0zM8 5.5a.5.5 0 0 1 .5-.5 3 3 0 1 1 0 6 .5.5 0 0 1 0-1 2 2 0 0 0 0-4 .5.5 0 0 1-.5-.5zM12.5 8a.5.5 0 0 1 .5-.5h1a.5.5 0 1 1 0 1h-1a.5.5 0 0 1-.5-.5zm-1.172 2.828a.5.5 0 0 1 .708 0l.707.708a.5.5 0 0 1-.707.707l-.708-.707a.5.5 0 0 1 0-.708zM8.5 12a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5z"/>
+        </svg>{{weatherData.temperatureC}}°C</div>
+      </div>
+    </div>
+    <div class="lowerdata">
+      <div class="more-info-label">
+        More Information
+      </div>
+      <div class="more-info-container">
+        <div class="info-block">
+          <div class="info-block-label">
+            <!-- <img src="../assets/OIP1.jpg"> -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-fill" viewBox="0 0 16 16">
+              <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/>
+            </svg>
+            <span>Category</span>
+          </div>
+        </div>
+        <div class="info-block-value">
+          {{weatherData.category}}
+        </div>
+
+        <div class="info-block">
+          <div class="info-block-label">
+            <!-- <img src="../assets/OIP2.jpg"> -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+            </svg>
+            <span>Datetime</span>
+          </div>
+        </div>
+        <div class="info-block-value">
+          {{weatherData.datetime}}
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- </form> -->

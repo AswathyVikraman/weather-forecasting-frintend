@@ -1,0 +1,222 @@
+<!-- <p>weather-dashboard works!</p> -->
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <!-- <a class="navbar-brand" href="#">
+      <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24">
+    </a> -->
+    <h1 class="text-white py-1">Weather Forecasting</h1>
+    <div class="d-flex">
+      
+
+      <ng-container *ngIf="role =='admin'">
+        <button (click)="clickAddWeather()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        class="btn btn-success btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg></button>
+      </ng-container>
+      
+      <!-- to see only user -->
+      <ng-container *ngIf="role =='user'">
+        <button class="text-white bg-dark border-0">
+          <span class="fa fa-user-circle fa-2x"></span>
+          <span class="fs-5 d-none d-sm-inline pt-2 text-light"routerLink="/frontpage">
+            Hello, {{username}}
+          </span> &nbsp;&nbsp;
+        </button>
+       
+        <button (click)="clickAddWeather()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        class="btn btn-success btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg></button>&nbsp;&nbsp;
+        <button (click)="logout()" class="btn btn-danger"><i class="fa fa-sign-out" aria-hidden="true"></i></button> &nbsp;&nbsp;
+        <!-- <button class="nav-link px-0 align-middle" routerLink="/frontpage">
+        </button> -->
+      </ng-container>
+      
+    </div>
+  </div>
+</nav>
+
+
+<div class="container-fluid">
+  <div class="row flex-nowrap">
+   
+    <!-- to show for user or admin only -->
+    <ng-container *ngIf="role =='admin'">
+
+      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+        <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+
+          <span class="fa fa-user-circle fa-5x" style="margin-left: 40px;"></span>
+          <span class="fs-5 d-none d-sm-inline pt-2">Hello ,{{username}}</span>
+
+          <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+            <li class="nav-item">
+              <a href="#" class="nav-link align-middle px-0" routerLink="/frontpage"><span class="fa fa-home p-2">
+              </span>Home</a>
+            </li>
+
+            <!-- <li>
+              <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                <span class="fa fa-dashboard p-2"></span> <span class="ms-1 d-none d-sm-inline">Dashboard</span></a>
+              <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                <li class="w-100">
+                  <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1</a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                <i class="fa fa-bolt p-2"></i> <span class="ms-1 d-none d-sm-inline">Weather</span> </a>
+              <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                <li class="w-100">
+                  <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">weather#</span> 1</a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">weather#</span> 2</a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">weather#</span> 3</a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">weather#</span> 4</a>
+                </li> -->
+              <!-- </ul>
+            </li> -->
+            <li>
+              <button class="nav-link px-0 align-middle" routerLink="/weather-app">
+                <i class="fa fa-search p-2"></i>Search</button>
+          </li>
+            <li>
+              <button class="nav-link px-0 align-middle"(click)="logout()">
+                <span class="fa fa-sign-out p-2"></span>Logout</button>
+            </li>
+            
+          </ul>
+          <hr>
+
+        </div>
+      </div>
+    </ng-container>
+    <div class="col py-3">
+
+      <!-- Content area... -->
+
+      <div class="container">
+        <ng-container *ngIf="role =='user'">
+          <a href="#" class="nav-link px-0 text-end" routerLink="/weather-app"><span class="fa fa-search">
+        </span>Search information by city</a>
+        </ng-container>
+        
+       
+        <table class="table mt-4">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">CITY</th>
+              <th scope="col">CATEGORY</th>
+              <th scope="col">DATETIME</th>
+              <th scope="col">TEMPERATURE</th>
+              <th scope="col">ACTION</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of weatherData">
+              <td>{{row.id}}</td>
+              <td>{{row.city}}</td>
+              <td>{{row.category}}</td>
+              <td>{{row.datetime}}</td>
+              <td>{{row.temperatureC}}</td>
+              <td>
+                <button (click)="onEdit(row)" style="color: aliceblue;" type="button" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal" class="btn btn-info"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                    height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path
+                      d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                  </svg></button>&nbsp;
+                <!-- <button (click)="onEdit(row)"><span class="fa-solid fa-file-pen"></span></button>&nbsp; -->
+                <ng-container *ngIf="role =='admin'">
+                  <button (click)="deleteWeather(row)" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg"
+                    width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    <path
+                      d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                  </svg></button>
+                </ng-container>
+                <!-- <button (click)="deleteWeather(row)" class="btn btn-danger"><i class="fa-sharp fa-solid fa-trash"></i></button> -->
+              </td>
+              <!-- </ng-container> -->
+            </tr>
+          </tbody>
+        </table>
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- </div> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Weather Information</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form [formGroup]="formvalue">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">city</label>
+            <input type="name" formControlName="city" class="form-control" id="exampleInputEmail1"
+              aria-describedby="emailHelp">
+
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Category</label>
+            <input type="name" formControlName="category" class="form-control" id="exampleInputEmail1"
+              aria-describedby="emailHelp">
+
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Datetime</label>
+            <input type="datetime-local" formControlName="datetime" class="form-control" id="exampleInputEmail1"
+              aria-describedby="emailHelp">
+
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Temperature</label>
+            <input type="name" formControlName="temperature" class="form-control" id="exampleInputEmail1"
+              aria-describedby="emailHelp">
+
+          </div>
+
+
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" *ngIf="showAdd" (click)="postWeatherDetails()" class="btn btn-primary">Add</button>
+        <button type="button" *ngIf="showUpdate" (click)="updateWeatherDetails()"
+          class="btn btn-primary">Update</button>
+
+      </div>
+    </div>
+  </div>
+</div>
